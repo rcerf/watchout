@@ -1,0 +1,23 @@
+body {
+  background-image: url('bo_play.png');
+}
+
+#wrapper {
+  background: white;
+  margin: 6em;
+  padding: 4em;
+  height: 35em;
+}
+
+#header {
+  display: inline-block;
+  float: left;
+}
+
+#scoreboard {
+  background: grey;
+  display: inline-block;
+  float: right;
+}
+
+
