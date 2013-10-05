@@ -32,26 +32,43 @@
   // var playerArray = [];
   // playerArray.push(player);
   // console.log(player);
+  var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+      d.x += d3.event.dx;
+      d.y += d3.event.dy;
+      d3.select(this).attr("transform", function(d,i){
+        return "translate(" + [ d.x,d.y ] + ")";
+    });
+  });
 
   var renderPlayer = function(playerArray){
     var playerData = gameBoard.selectAll('circle.player').data(playerArray, function(player){
       return player.id;
     });
 
-
     playerData.enter().append('svg:circle').attr('class', 'player').attr('cx', function(player){
       return axes.x(player.x);
     }).attr('cy', function(player){
       return axes.y(player.y);
-    }).attr('r', 10).attr('fill', 'aqua');
+    }).attr('r', 10).attr('fill', 'aqua').call(drag);
 
-    d3.select("svg").on("click", function(){
-      d3.select(".player").transition().duration(500).attr('cx', function(){
-        return d3.mouse(this)[0];
-        }).attr('cy', function(){
-          return d3.mouse(this)[1];
-      });
+    var playerSelector = d3.select(".player");
+    var gate = playerSelector.on("mouseup", function(){
+      // d3.select('svg').off('mousemove');
     });
+
+
+
+    // playerSelector.on("mousedown", function(){
+    //   d3.behavior.drag().on("drag", function(){
+    //     playerSelector.attr('cx', function(){
+    //       return d3.mouse(this)[0];
+    //     }).attr('cy', function(){
+    //       return d3.mouse(this)[1];
+    //     });
+    //   });
+    // });
+
   };
 
   var render = function(newEnemies){
@@ -64,8 +81,6 @@
     }).attr('cy', function(enemy){
       return axes.y(enemy.y);
     }).attr('r', 10);
-
-    
 
     setInterval(function(){
       var newEnemyLocation = createEnemies();
