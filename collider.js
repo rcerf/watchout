@@ -29,6 +29,7 @@
     }).attr('cy', function(enemy){
       return axes.y(enemy.y);
     }).attr('r', 10);
+    enemyBoard.exit().remove();
   };
 
   var createEnemies = function(){
@@ -42,7 +43,11 @@
   };
 
 var newEnemies = createEnemies();
-
-render(newEnemies);
+//render(newEnemies);
+setInterval(function(){
+  d3.selectAll("circle").remove();
+  var newEnemypositions = createEnemies();
+  return render(newEnemypositions);
+}, 1000);
 
 }).call(this);
