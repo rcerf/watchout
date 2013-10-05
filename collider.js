@@ -29,7 +29,17 @@
     }).attr('cy', function(enemy){
       return axes.y(enemy.y);
     }).attr('r', 10);
-    enemyBoard.exit().remove();
+
+    setInterval(function(){
+      var newEnemyLocation = createEnemies();
+      var newEnemyBoard = gameBoard.selectAll('circle.enemy').data(newEnemyLocation, function(d){
+        return d.id;
+      }).transition().duration(1000).attr('cx', function(enemy){
+        return axes.x(enemy.x);
+      }).attr('cy', function (enemy){
+        return axes.y(enemy.y);
+      }).attr('r', 10);
+    }, 1000);
   };
 
   var createEnemies = function(){
@@ -43,11 +53,11 @@
   };
 
 var newEnemies = createEnemies();
-//render(newEnemies);
-setInterval(function(){
-  d3.selectAll("circle").remove();
-  var newEnemypositions = createEnemies();
-  return render(newEnemypositions);
-}, 1000);
+render(newEnemies);
+// setInterval(function(){
+//   d3.selectAll("circle").remove();
+//   var newEnemypositions = createEnemies();
+//   return render(newEnemypositions);
+// }, 1000);
 
 }).call(this);
