@@ -8,10 +8,10 @@ body {
 
 .container {
   background: white;
-  margin: 6em;
-  padding: 4em;
-  height: 37em;
-  width: 800px;
+  margin: 10% 18% 18%;
+  padding: 2em 2em;
+  height: 33em;
+  width: 700px;
 }
 
 #header {
@@ -30,8 +30,4 @@ body {
 
 #scoreboard li {
   margin-top: 8px;
-}
-
-.enemy {
-  color: black;
 }
