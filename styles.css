@@ -2,7 +2,7 @@ body {
   background-image: url('bo_play.png');
 }
 
-#wrapper {
+.container {
   background: white;
   margin: 6em;
   padding: 4em;
@@ -19,5 +19,3 @@ body {
   display: inline-block;
   float: right;
 }
-
-
