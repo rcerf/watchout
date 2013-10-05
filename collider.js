@@ -15,7 +15,7 @@
     x: d3.scale.linear().domain([0, 100]).range([0, gameOptions.width]),
     y: d3.scale.linear().domain([0, 100]).range([0, gameOptions.height])
   };
-  
+
   var gameBoard = d3.select('.container').append('svg').attr('width', gameOptions.width)
   .attr('height', gameOptions.height);
 
@@ -23,8 +23,12 @@
     var enemyBoard = gameBoard.selectAll('circle.enemy').data(newEnemies, function(d){
       return d.id;
     });
-
-    enemyBoard.enter().append('svg:circle').attr('class', 'enemy').attr()
+    // debugger;
+    enemyBoard.enter().append('svg:circle').attr('class', 'enemy').attr('cx', function(enemy){
+      return axes.x(enemy.x);
+    }).attr('cy', function(enemy){
+      return axes.y(enemy.y);
+    }).attr('r', 10);
   };
 
   var createEnemies = function(){
@@ -39,5 +43,6 @@
 
 var newEnemies = createEnemies();
 
+render(newEnemies);
 
 }).call(this);
