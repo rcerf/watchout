@@ -7,20 +7,32 @@ body {
 }
 
 .container {
-  background: white;
+  background: black;
   margin: 10% 18% 18%;
-  padding: 2em 2em;
-  height: 33em;
+  padding: 0em 1em 2em;
+  height: 35em;
   width: 700px;
+  color: white;
+}
+
+#headerwrapper {
+  text-align: center;
 }
 
 #header {
   display: inline-block;
-  float: left;
+}
+
+#header h1 {
+  font-size: 30px;
+}
+
+svg {
+  background-color: yellow;
 }
 
 #scoreboard {
-  background: rgb(221,221,221);
+  background: black;
   display: inline-block;
   float: right;
   width: 25%;
@@ -28,6 +40,13 @@ body {
   padding: 15px 0px;
 }
 
-#scoreboard li {
+#scoreboard ul li {
   margin-top: 8px;
+  list-style-type: none;
+  text-align: left;
+}
+
+#scoreboard ul {
+  padding-left: 20px;
+  padding-right: 10px;
 }

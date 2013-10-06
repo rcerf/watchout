@@ -6,15 +6,17 @@
   </head>
   <body>
     <section class="container">
-      <div id="header">
-        <h1>Watchout</h1>
-        <h3>Don't Get Hit!</h3>
-      </div>
-      <div id="scoreboard">
-        <ul>
-          <li>High Score:</li>
-          <li>Current Score:</li>
-        </ul>
+      <div id="headerwrapper">
+        <div id="header">
+          <h1>Watchout</h1>
+          <h3>Don't Get Hit!</h3>
+        </div>
+        <div id="scoreboard">
+          <ul>
+            <li>High Score: <span id="best-score"></span></li>
+            <li>Current Score: <span id="current-score"></span></li>
+          </ul>
+        </div>
       </div>
     </section>
     <script type="text/javascript" src="d3.min.js"></script>
