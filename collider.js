@@ -108,21 +108,10 @@
     return enemyBoard.transition()
       .duration(2000)
       .tween('custom', tweenCollisionDetection);
-
-    // setInterval(function(){
-    //   var newEnemyLocation = createEnemies();
-    //   var newEnemyBoard = gameBoard.selectAll('circle.enemy').data(newEnemyLocation, function(d){
-    //     return d.id;
-    //   }).transition().duration(1000).attr('cx', function(enemy){
-    //     return axes.x(enemy.x);
-    //   }).attr('cy', function (enemy){
-    //     return axes.y(enemy.y);
-    //   }).attr('r', 10);
-    // }, 1000);
   };
 
   var tweenCollisionDetection = function(endData){
-    var enemy = d3.select(this);  // this?
+    var enemy = d3.select(this);
 
     var startPos = {
       x: parseFloat(enemy.attr('cx')),
@@ -135,7 +124,7 @@
     };
 
     return function(t){
-      // checkCollision(enemy); // Remember to update scores
+      checkCollision(enemy); // Remember to update scores
 
       var enemyNextPos = {
         x: startPos.x + (endPos.x - startPos.x) * t,
@@ -146,6 +135,30 @@
     };
   };
 
+  var checkCollision = function(enemy){
+    var players = d3.select('.player');
+    // console.log(players.attr('cx'));
+      // console.log(player);
+      var radiusSum = parseFloat(enemy.attr('r')) + parseFloat(players.attr('r'));
+      var xDiff = parseFloat(enemy.attr('cx')) - parseFloat(players.attr('cx'));
+      var yDiff = parseFloat(enemy.attr('cy')) - parseFloat(players.attr('cy'));
+      // console.log(": ", radiusSum, xDiff, yDiff);
+      var separation = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+      if (separation < radiusSum){
+        collided();
+      }
+  };
+
+  var collided = function(){
+    console.log("Collided Collision Logged!");
+    updateBestScore();
+    gameStats.score = 0;
+    return updateScore();
+  };
+
+  var newEnemies = createEnemies();
+  render(newEnemies);
+
   setInterval(function(){
     var newEnemies = createEnemies();
     render(newEnemies);
@@ -153,5 +166,21 @@
 
   var newPlayer = createPlayer();
   renderPlayer(newPlayer);
+
+  updateScore = function() {
+    return d3.select('#current-score').text(gameStats.score.toString());
+  };
+
+  updateBestScore = function() {
+    gameStats.bestScore = _.max([gameStats.bestScore, gameStats.score]);
+    return d3.select('#best-score').text(gameStats.bestScore.toString());
+  };
+
+  var increaseScore = function(){
+    gameStats.score += 1;
+    updateScore();
+  };
+
+  setInterval(increaseScore, 500);
 
 }).call(this);
